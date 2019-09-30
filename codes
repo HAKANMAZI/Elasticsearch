@@ -1,0 +1,4 @@
+sudo apt-get update
+    - varolan işletim sistemindeki tüm dosyaları günceller (update komutu herhangi bir install ya da upgrade yapmaz) 
+sudo apt-get upgrade 
+    - varolan tüm dosyalar yüklenir
