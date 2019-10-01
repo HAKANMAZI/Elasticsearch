@@ -83,6 +83,11 @@ sudo systemctl enable kibana.service
 sudo systemctl start kibana.service
 systemctl status kibana.service
 
+match
+    - kelime eşleştirme
+match_phrase 
+    - cümle eşleştirme
+
 GET /shakespeare/_search
 {
   "query": {
@@ -103,10 +108,22 @@ PUT /movies
   }
 }
 
-match
-    - kelime eşleştirme
-match_phrase 
-    - cümle eşleştirme
+POST movies/_doc/200000
+{
+  "genre":"komedi",
+  "title":"Şaban Askerde",
+  "year":1970
+}
+
+POST movies/_doc/200000
+{
+  "genre":"komedi",
+  "title":"Şaban Askerde",
+  "year":1970,
+  "oyuncu":"Kemal Sunal"
+}
+
+
 
 
 lucene 
