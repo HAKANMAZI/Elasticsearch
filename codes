@@ -44,6 +44,9 @@ which curl
 curl -XGET 127.0.0.1:9200
 history
 history -c
+wget http://media.sundog-soft.com/es7/movies.json
+
+
 
 CURL
 curl -XGET 127.0.0.1:9200/movies/_mapping?pretty
@@ -56,12 +59,15 @@ curl -XPOST 127.0.0.1:9200/movies/_doc/1 -d '
         "title":"interstellarş",
         "year":2014
 }'
+curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
+curl -XGET 127.0.0.1:9200
+curl -XGET 127.0.0.1:9200/movies/_search?pretty
+curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
 
 
 
 Elasticsearch
 sudo apt-get install elasticsearch
-
 sudo systemctl status elasticsearch.service
     - elastic durum kontrol
 sudo more /etc/elasticsearch/elasticsearch.yml
@@ -72,7 +78,6 @@ sudo /bin/systemctl enable elasticsearch.service
     - servisi servislere ekler
 sudo /bin/systemctl start elasticsearch.service
     - servis başlat
-curl -XGET 127.0.0.1:9200
 
 
 
@@ -82,7 +87,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable kibana.service
 sudo systemctl start kibana.service
 systemctl status kibana.service
-
 match
     - kelime eşleştirme
 match_phrase 
