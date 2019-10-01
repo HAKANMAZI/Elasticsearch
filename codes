@@ -2,3 +2,68 @@ sudo apt-get update
     - varolan işletim sistemindeki tüm dosyaları günceller (update komutu herhangi bir install ya da upgrade yapmaz) 
 sudo apt-get upgrade 
     - varolan tüm dosyalar yüklenir
+    
+sudo su - root 
+passwd root
+su - student
+su - root
+visudo
+sudo vi /etc/sudoers
+    - çok önemli
+
+vi /etc/sudoers
+ls
+pwd
+unzip ml-latest-small/
+sudo apt install unzip
+ls
+unzip ml-latest-small/
+history
+
+
+
+Elasticsearch
+sudo apt-get install elasticsearch
+
+sudo systemctl status elasticsearch.service
+    - elastic durum kontrol
+sudo more /etc/elasticsearch/elasticsearch.yml
+    - 
+sudo /bin/systemctl daemon-reload
+    - servisleri ekler
+sudo /bin/systemctl enable elasticsearch.service
+    - servisi servislere ekler
+sudo /bin/systemctl start elasticsearch.service
+    - servis başlat
+curl -XGET 127.0.0.1:9200
+
+
+
+Kibana
+sudo apt-get install kibana
+sudo systemctl daemon-reload
+sudo systemctl enable kibana.service
+sudo systemctl start kibana.service
+systemctl status kibana.service
+
+GET /shakespeare/_search
+{
+  "query": {
+    "match_phrase": {                        
+      "text_entry": "to be or not to be"
+    }
+  }
+}
+
+match
+    - kelime eşleştirme
+match_phrase 
+    - cümle eşleştirme
+
+
+lucene 
+    tek makinede çok hızlı arama yapan algoritma
+cap teoremi
+
+
+ssh port 22
