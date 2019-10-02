@@ -163,6 +163,18 @@ GET movies/_search
 }
 
 
+---WildCard
+GET movies/_search
+{
+  "query": {
+    "wildcard": {
+      "title": {
+        "value": "*yo*d"
+      }
+    }
+  }
+}
+
 
 
 
