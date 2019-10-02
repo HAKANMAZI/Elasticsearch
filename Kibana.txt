@@ -1,0 +1,152 @@
+        queryline search
+GET /movies/_count
+GET /movies/_search
+GET /movies/_search?q=star
+GET /movies/_search?q=title:star
+NOT Queryline 
+
+Bu formatta yazarken işler her zaman kolay olmuyor, + : > gibi işaretleri URL encode etmek gerekiyor, %2B %3A gibi.
+
+GET /movies/_search?q=year:>2010 OR title:trek
+
+
+
+    request body search, json search
+GET /movies/_search
+{
+  "query": {
+    "match": {
+      "title": "star"
+    }
+  }
+}
+
+GET /movies/_search
+{
+  "query": {
+    "match_phrase": {
+      "title": "star trek"
+    }
+  }
+}
+
+GET /movies/_search
+{
+  "query": {
+    "bool": {
+      "must": {"term":{"title":"trek"}},
+      "filter": {"range": {
+        "year": {
+          "gte": 2010
+        }
+      }}
+    }
+  }
+}
+
+GET /movies/_search
+{
+  "query": {
+    "bool": {
+      "must": {"match":{"title":"star trek"}},
+      "filter": {"range": {
+        "year": {
+          "gte": 2010
+        }
+      }}
+    }
+  }
+}
+
+GET /movies/_search
+{
+  "query": {
+    "bool": {
+      "must": {"match_phrase":{"title":"star trek"}},
+      "filter": {"range": {
+        "year": {
+          "gte": 2010
+        }
+      }}
+    }
+  }
+}
+
+
+GET /movies/_search
+{
+  "query": {
+    "match_phrase": {
+      "title": {"query": "star beyond","slop":100}
+    }
+  }
+}
+
+
+GET /movies/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"match_phrase": {
+          "title": "t"
+        }}
+      ],
+      "filter": {
+       "range": {
+         "year": {
+           "gt": 1980
+         }
+       }
+      }
+    }
+  }
+}
+
+GET /filmler/_mapping
+
+type:keyword 
+   partial arama yapamaz
+   birebir arama yap
+   
+type:text 
+   sıralı arama yapamaz
+
+
+
+PUT /*/_settings
+{
+    "index" : {
+        "number_of_replicas" : 0
+    }
+}
+
+
+GET filmler/_mapping
+
+      Pagination
+      
+      Sorting
+GET movies/_search?sort=year:desc
+GET movies/_search?sort=title x
+
+
+    Sıralama istenilecek alanlara 
+    fields raw type:keyword
+
+PUT /movies
+{
+  "mappings": {
+    "properties": {
+      "title":{
+        "type": "text",
+        "fields": {
+          "raw":{
+            "type":"keyword"
+          }
+        }
+      }
+    }
+  }  
+}
+GET movies/_search?sort=title.raw:desc
