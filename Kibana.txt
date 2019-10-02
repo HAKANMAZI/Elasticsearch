@@ -150,3 +150,20 @@ PUT /movies
   }  
 }
 GET movies/_search?sort=title.raw:desc
+
+
+--- Did You Mean
+GET movies/_search
+{
+  "query": {
+    "fuzzy": {
+      "title": {"value": "beyod","fuzziness": "auto"}
+    }
+  }
+}
+
+
+
+
+
+
