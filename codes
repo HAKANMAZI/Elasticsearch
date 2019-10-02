@@ -45,7 +45,7 @@ curl -XGET 127.0.0.1:9200
 history
 history -c
 wget http://media.sundog-soft.com/es7/movies.json
-
+wc -l movies.json
 
 
 CURL
@@ -63,6 +63,8 @@ curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
 curl -XGET 127.0.0.1:9200
 curl -XGET 127.0.0.1:9200/movies/_search?pretty
 curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
+curl -XPUT 127.0.0.1:9200/movies/_bulk?pretty --data-binary @movies.json
+curl -XDELETE 127.0.0.1:9200/movies
 
 
 
