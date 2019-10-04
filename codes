@@ -20,6 +20,10 @@ ls
 unzip ml-latest-small/
 history
 
+size 
+  du -h directory/
+  ls -al file/
+
 pwd
 cd /
 pwd
