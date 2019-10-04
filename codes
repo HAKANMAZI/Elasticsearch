@@ -148,16 +148,19 @@ POST movies/_doc/200000
         node.max_local_storage_nodes: 3
         cluster.name: garip
         node.name: node-1
+        Not: discovery.zen.ping.unicast.hosts:["144.12.12.14","144.12.12.2"] Farklı sunucularda kesinlikle tüm ip leri olmalı
         cluster.initial_master_nodes: ["node-1","node-2","node-3"]
     cd /etc
     sudo cp -rp elasticsearch elasticsearch-node2
     sudo cp -rp elasticsearch elasticsearch-node3
     sudo nano /etc/elasticsearch-node2/elasticsearch.yml
         node.name: node-2
-        http:port: 9201   -- productionda farklı sunucular olduğu için ip değiştirmeye gerek yok
+        Not: discovery.zen.ping.unicast.hosts:["144.12.12.14","144.12.12.2"] Farklı sunucularda kesinlikle tüm ip leri olmalı
+        Not: http:port: 9201   -- productionda farklı sunucular olduğu için ip değiştirmeye gerek yok
     sudo nano elasticsearch-node3/elasticsearch.yml
         node.name: node-3
-        http:port: 9202   -- productionda farklı sunucular olduğu için ip değiştirmeye gerek yok
+        Not: discovery.zen.ping.unicast.hosts:["144.12.12.14","144.12.12.2"] Farklı sunucularda kesinlikle tüm ip leri olmalı
+        Not: http:port: 9202   -- productionda farklı sunucular olduğu için ip değiştirmeye gerek yok
     
 
 
