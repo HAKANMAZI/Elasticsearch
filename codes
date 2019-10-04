@@ -161,7 +161,19 @@ POST movies/_doc/200000
         node.name: node-3
         Not: discovery.zen.ping.unicast.hosts:["144.12.12.14","144.12.12.2"] Farklı sunucularda kesinlikle tüm ip leri olmalı
         Not: http:port: 9202   -- productionda farklı sunucular olduğu için ip değiştirmeye gerek yok
-    
+    cd /usr/lib/systemd/system
+    sudo cp elasticsearch.service elasticsearch-node2.service
+    sudo cp elasticsearch.service elasticsearch-node2.service
+    sudo nano elasticsearch-node2.service 
+        Environment=ES_PATH_CONF=/etc/elasticsearch-node2
+    sudo nano elasticsearch-node3.service 
+        Environment=ES_PATH_CONF=/etc/elasticsearch-node3
+    sudo systemctl daemon-reload
+    sudo systemctl stop elasticsearch.service
+    sudo systemctl start elasticsearch.service
+    sudo systemctl start elasticsearch-node2.service
+    sudo systemctl start elasticsearch-node3.service
+
 
 
 
