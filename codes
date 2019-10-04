@@ -175,6 +175,11 @@ POST movies/_doc/200000
     sudo systemctl start elasticsearch-node3.service
 
 
+free
+    ram
+top 
+    cpu
+
 
 
 lucene 
