@@ -142,7 +142,13 @@ POST movies/_doc/200000
   "oyuncu":"Kemal Sunal"
 }
 
-
+Çoklu Node Kurulumu
+    /etc/elasticsearch/elasticsearch.yml
+    sudo nano /etc/elasticsearch/elasticsearch.yml
+        node.max_local_storage_nodes: 3
+        cluster.name: garip
+        node.name: node-1
+        cluster.initial_master_nodes: ["node-1","node-2","node-3"]
 
 
 lucene 
