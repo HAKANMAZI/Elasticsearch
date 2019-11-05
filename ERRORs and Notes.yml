@@ -1,0 +1,6 @@
+top
+(elastic'in pid'sini öğren ve kill et)
+sudo kill -SIGKILL PID
+sudo systemctl start elasticsearch.service
+sudo systemctl status elasticsearch.service
+sudo systemctl stop elasticsearch.service
