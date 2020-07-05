@@ -57,4 +57,11 @@ for i,row in enumerate(cursor):
     
     es.index(index=index_name,id=i,body=rest)
 
+def match():
+    cursor.execute("select @@rowcount")
+    rowcount = cursor.fetchall()[0][0]
+    print('row count in mssql: ', rowcount)
+    res= es.search(index=index_name,body={'query':{'match_all':{}}})
+    print('data count in Elasticsearch: ', res['hits']['total']['value'])   
     
+match()
