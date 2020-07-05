@@ -1,8 +1,26 @@
 from elasticsearch import Elasticsearch
 import pyodbc 
 
-sql_text = "select * from [NORTHWND].[dbo].[Orders]"
-index_name = "hakan"
+sql_text = '''select [EmployeeID]
+      ,[LastName]
+      ,[FirstName]
+      ,[Title]
+      ,[TitleOfCourtesy]
+      ,[BirthDate]
+      ,[HireDate]
+      ,[Address]
+      ,[City]
+      ,[Region]
+      ,[PostalCode]
+      ,[Country]
+      ,[HomePhone]
+      ,[Extension]
+      --,cast([Photo] as varchar)
+      ,[Notes]
+      ,[ReportsTo]
+      ,[PhotoPath] from [NORTHWND].[dbo].[Employees]'''
+      
+index_name = "nag"
 
 def connect_elasticsearch():
     _es = None
@@ -10,14 +28,14 @@ def connect_elasticsearch():
     if _es.ping():
         print('Elasticsearch Connected')
     else:
-        print('Awww it could not connect!')
+        print('it could not connect!')
     return _es
 es = connect_elasticsearch()
 
 def create_index(index_name):
     if not es.indices.exists(index_name):
         es.indices.create(index=index_name)
-        print(index_name+" indexi created")
+        print(index_name+" index created")
     else:
         print(index_name+" already exist")
     return index_name
