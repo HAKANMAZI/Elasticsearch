@@ -177,5 +177,10 @@ GET movies/_search
 
 
 
-
+GET hakan/_search
+{
+   "sort": [
+        { "OrderDate": "asc" }
+    ]
+}
 
