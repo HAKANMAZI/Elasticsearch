@@ -1,6 +1,8 @@
 from elasticsearch import Elasticsearch
 import pyodbc 
 
+sql_text = "select * from [NORTHWND].[dbo].[Orders]"
+index_name = "hakan"
 
 def connect_elasticsearch():
     _es = None
@@ -12,91 +14,29 @@ def connect_elasticsearch():
     return _es
 es = connect_elasticsearch()
 
+def create_index(index_name):
+    if not es.indices.exists(index_name):
+        es.indices.create(index=index_name)
+        print(index_name+" indexi created")
+    else:
+        print(index_name+" already exist")
+    return index_name
+
+index_name = create_index(index_name)
+
+
 conn = pyodbc.connect('Driver={SQL Server};'
                       'Server=DESKTOP-BDR59P4;'
                       'Database=NORTHWND;'
                       'Trusted_Connection=yes;')
 
-def send_data_to_elastic(CategoryID,CategoryName,Description,Picture):
-    e1={
-      "CategoryName":CategoryName
-      ,"Description":Description
-      ,"Picture":Picture
-    }
-    print(e1)
-    es.index(index='hey1',doc_type='employee',id=CategoryID,body=e1)
+cursor = conn.cursor()   
+cursor.execute(sql_text)
+columns = [column[0] for column in cursor.description]
 
-
-
-
-cursor = conn.cursor()
-cursor.execute("select *  FROM [NORTHWND].[dbo].[Categories]")
-
-for row in cursor:
-    send_data_to_elastic(row[0],row[1],row[2],str(row[3]))
+for i,row in enumerate(cursor):
+    rest = {column:row[i] for i,column in enumerate(columns)}
     
-
-
-
-         
+    es.index(index=index_name,id=i,body=rest)
 
     
-
-    
-
-    res= es.search(index='hey1',body={'query':{'match_all':{}}})
-    print('Got hits:', res['hits']['total']['value'])
-    print(res['hits']['hits'])
-    print("-------------------------")
-    
-    res= es.search(index='hey1',body={'query':{'match':{'first_name':'nitin'}}})
-    print(res['hits']['hits'])
-    
-    
-    print("%%%%%%%   bool   %%%%%%%%")
-    res= es.search(index='hey1',body={
-            'query':{
-                'bool':{
-                    'must':[{
-                            'match':{
-                                'first_name':'nitin'
-                            }
-                        }]
-                }
-            }
-        })
-    print(res['hits']['hits'])
-    
-    print("%%%%%%%   filter   %%%%%%%%")
-    res= es.search(index='hey1',body={
-            'query':{
-                'bool':{
-                    'must':{
-                        'match':{
-                            'first_name':'nitin'
-                        }
-                    },
-                    "filter":{
-                        "range":{
-                            "age":{
-                                "gt":27
-                            }
-                        }
-                    }
-                }
-            }
-        })
-    print(res['hits']['hits'])
-    
-    print("%%%%%%%   full text search   %%%%%%%%")
-    res= es.search(index='hey1',doc_type='employee',body={
-            'query':{
-                'match':{
-                    "about":"play cricket"
-                }
-            }
-        })
-    for hit in res['hits']['hits']:
-        print(hit['_source']['about'])
-        print(hit['_score'])
-        print('**********************')
