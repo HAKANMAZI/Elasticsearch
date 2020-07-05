@@ -15,7 +15,7 @@ sql_text = '''select [EmployeeID]
       ,[Country]
       ,[HomePhone]
       ,[Extension]
-      --,cast([Photo] as varchar)
+      --,[Photo]
       ,[Notes]
       ,[ReportsTo]
       ,[PhotoPath] from [NORTHWND].[dbo].[Employees]'''
@@ -37,11 +37,9 @@ def create_index(index_name):
         es.indices.create(index=index_name)
         print(index_name+" index created")
     else:
-        print(index_name+" already exist")
+        print(index_name+" index already exist")
     return index_name
-
 index_name = create_index(index_name)
-
 
 conn = pyodbc.connect('Driver={SQL Server};'
                       'Server=DESKTOP-BDR59P4;'
@@ -60,8 +58,8 @@ for i,row in enumerate(cursor):
 def match():
     cursor.execute("select @@rowcount")
     rowcount = cursor.fetchall()[0][0]
-    print('row count in mssql: ', rowcount)
+    print('Mssql count: ', rowcount)
     res= es.search(index=index_name,body={'query':{'match_all':{}}})
-    print('data count in Elasticsearch: ', res['hits']['total']['value'])   
+    print('Elasticsearch count: ', res['hits']['total']['value'])   
     
 match()
