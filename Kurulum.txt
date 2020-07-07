@@ -1,4 +1,4 @@
-Oracle VM VirtualBox
+Oracle VM VirtualBox or Hyper-V
       - Sanallaştırma için
       - https://download.virtualbox.org/virtualbox/6.0.12/VirtualBox-6.0.12-133076-Win.exe
 Ubuntu
