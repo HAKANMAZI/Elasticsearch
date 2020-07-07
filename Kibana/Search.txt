@@ -1,0 +1,263 @@
+GET indexname/_search
+
+GET indexname/_search?q=telefonno:*5 
+
+GET indexname/_search?q=konumua.ascii:supheli
+
+GET indexname/_search?sort=@timestamp:asc 
+
+GET indexname/_search?sort=geciszamani:desc
+
+GET indexname/_search?q=plaka:42aak41
+
+GET indexname/_search?q=islem_talebi:59515203000&sort=islem_zamani:desc
+
+GET indexname/_mapping
+
+GET indexname/_search
+{
+  "query": {
+    "match": {
+      "mernisno": "50965370892"
+    }
+  }
+}
+
+GET indexname/_search
+{
+  "query": {
+    "match": {
+      "plaka": "06fd0786"
+    }
+  },
+  "size": 100
+}
+
+GET indexname/_search
+{
+  "query": {
+    "has_child": {
+      "type": "ekip",
+      "query": {
+        "match": {
+          "konumua.ascii": "supheli"
+        }
+      }
+    }
+  }
+}
+
+GET indexname/_search
+{
+  "query": {
+    "constant_score": {
+      "filter": {
+        "range": {
+          "@timestamp": {
+            "gte" : 20,
+            "lt": "2018-05-04"
+          }
+        }
+      },
+      "boost": 1.2
+    }
+  }
+}
+
+GET indexname/_search
+{
+  "query": {
+     "constant_score": {
+       "filter": {
+         "bool": {
+           "must":[
+                {"term" : {"ad":"aycan"} },
+                {"term" : {"soyad":"aycan"} }
+             ]
+         }
+       },
+       "boost": 1.2
+     }
+  }
+}
+
+
+
+GET indexname/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+          {
+            "range": {
+              "kayittarihi": {
+                "gte": "2018-07-01",
+                "lte": "2018-07-02"
+              }
+            }
+          },
+          {
+            "match": {
+              "plaka":"42ABG739"
+            }
+          }
+        ] 
+    }
+  }
+}
+
+
+
+-----------------------------------------------------
+GET indexname/_search
+{
+  "query": {
+    "has_child": {
+      "type": "es",
+      "query": {
+     "constant_score": {
+       "filter": {
+         "bool": {
+           "must":[
+                {"term" : {"ad":"aycan"} },
+                {"term" : {"soyad":"bülbül"} }
+             ]
+         }
+       },
+       "boost": 1.2
+     }
+    }
+    }
+  }
+}
+-----------------------------------------------------
+GET indexname/_search
+{
+  "query": {
+     "constant_score": {
+       "filter": {
+         "bool": {
+           "must":[
+                {"term" : {"ad":"aycan"} },
+                {"term" : {"soyad":"bülbül"} }
+             ]
+         }
+       },
+       "boost": 1.2
+     }
+  }
+}
+----------------------------------------------------
+GET indexname/_search
+{
+  "query": {
+     "constant_score": {
+       "filter": {
+         "bool": {
+           "must":[
+                {"match" : {"isyeri":"cumhurbaþkanlýðý"} },
+                {"match" : {"il":"ankara"} },
+                {"match" : {"meslek":"EMNÝYET AMÝRÝ"} }
+             ]
+         }
+       },
+       "boost": 1.2
+     }
+  }
+}
+--------------------------------------------------
+get indexname,indexname2,indexname3/_search?q=mernisno:59515203000
+--------------------------------------------------
+
+GET indexname/_search
+{
+  "query": {
+    "constant_score": {
+      "filter": {
+        "bool": {
+           "must":[
+                {"range" : {"islem_zamani":{"gte" : "2017-11-25","lte": "2017-11-30"} }}
+             ],
+           "must_not":[
+                {"match" : {"islem_turu":"*Detay*"} }
+             ]
+         }
+        
+      },
+      "boost": 1.2
+    }
+  }
+}
+
+----------------------------------------------------------------------------------------
+GET indexname/_search
+{
+  "query": {
+    "bool": {
+      "should" : [
+         {"match" : {"query_cumlesi": "tckn"}},
+         {"match" : {"query_cumlesi": "tckn"}}
+      ],
+      "must":{
+        "range":{
+          "tarih":{"gte":"2018-05-18","lte":"2018-05-28"}
+        }
+      }
+    }
+  }
+}
+-----------------------------------------------------------------------
+lokasyon null olanlarý getir.
+
+GET indexname/_search
+{
+  "query": {
+    "bool": {
+      "must_not": {
+        "exists":{
+          "field":"lokasyon"
+        }
+      }
+      
+    }
+  }
+}
+-------------------------------------------------------------------------------
+GET indexname/_search
+{
+  "aggs": {
+    "test": {
+      "terms": {
+        "field": "type.keyword",
+        "size": 10
+      }
+    }
+  }
+} 
+
+---------------------------------------------------------------------------------
+GET indexname/_search
+{
+  "query": {
+    "constant_score": {
+      "filter": {
+        "bool": {
+           "must":[
+                {"range" : {"@timestamp":{"gte" : "2020-07-01","lte": "2020-07-02"} }},
+                {"match" : {"sql_text":"update"} },
+                {"match" : {"sql_text":"KT_KullaniciYetkileri"} }
+             ]
+         }
+        
+      },
+      "boost": 1.2
+    }
+  },
+  "sort": [
+    {
+      "@timestamp": {
+        "order": "asc"
+      }
+    }
+  ]
+}
