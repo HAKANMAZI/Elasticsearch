@@ -1,1 +1,3 @@
-das
+1- Install ubuntu for 4 server
+2- Manage ip for 4 servers
+3- Drag and drop ( elasticsearch-7.8.0-amd64.deb / kibana-7.8.0-amd64.deb ) to ubuntu home directory for 4 Servers
