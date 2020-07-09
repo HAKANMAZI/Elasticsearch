@@ -120,7 +120,7 @@ GET indexname/_search
          "bool": {
            "must":[
                 {"term" : {"ad":"aycan"} },
-                {"term" : {"soyad":"bülbül"} }
+                {"term" : {"soyad":"bÃ¼lbÃ¼l"} }
              ]
          }
        },
@@ -139,7 +139,7 @@ GET indexname/_search
          "bool": {
            "must":[
                 {"term" : {"ad":"aycan"} },
-                {"term" : {"soyad":"bülbül"} }
+                {"term" : {"soyad":"bÃ¼lbÃ¼l"} }
              ]
          }
        },
@@ -155,9 +155,9 @@ GET indexname/_search
        "filter": {
          "bool": {
            "must":[
-                {"match" : {"isyeri":"cumhurbaşkanlığı"} },
+                {"match" : {"isyeri":"cumhurbaÃ¾kanlÃ½Ã°Ã½"} },
                 {"match" : {"il":"ankara"} },
-                {"match" : {"meslek":"EMNİYET AMİRİ"} }
+                {"match" : {"meslek":"EMNÃYET AMÃRÃ"} }
              ]
          }
        },
@@ -207,7 +207,7 @@ GET indexname/_search
   }
 }
 -----------------------------------------------------------------------
-lokasyon null olanları getir.
+lokasyon null olanlarÃ½ getir.
 
 GET indexname/_search
 {
@@ -259,5 +259,13 @@ GET indexname/_search
         "order": "asc"
       }
     }
+  ]
+}
+
+
+PUT /_aliases
+{
+  "actions":[
+    {"add":{"index":"eskiad","alias":"yeniad"}}
   ]
 }
