@@ -1,18 +1,12 @@
 GET indexname/_search
-
 GET indexname/_search?q=telefonno:*5 
-
 GET indexname/_search?q=konumua.ascii:supheli
-
 GET indexname/_search?sort=@timestamp:asc 
-
 GET indexname/_search?sort=geciszamani:desc
-
 GET indexname/_search?q=plaka:42aak41
-
 GET indexname/_search?q=islem_talebi:59515203000&sort=islem_zamani:desc
-
 GET indexname/_mapping
+
 
 GET indexname/_search
 {
