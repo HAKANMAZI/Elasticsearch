@@ -63,3 +63,10 @@ def match():
     print('Elasticsearch count: ', res['hits']['total']['value'])   
     
 match()
+
+
+### kibana GET /_cat/indices/
+### python print(es.cat.indices())
+
+### kibana GET /_cat/health
+### python print(es.cat.health())
