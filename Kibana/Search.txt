@@ -1,5 +1,8 @@
+-- search
 GET indexname/_search
-GET indexname/_search?q=telefonno:*5 
+
+-- search phonnumber finish 5 
+GET indexname/_search?q=phonenumber:*5 
 GET indexname/_search?q=konumua.ascii:supheli
 GET indexname/_search?sort=@timestamp:asc 
 GET indexname/_search?sort=geciszamani:desc
