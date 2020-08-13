@@ -6,8 +6,8 @@ GET indexname/_search?q=phonenumber:*5
 GET indexname/_search?q=konumua.ascii:supheli
 GET indexname/_search?sort=@timestamp:asc 
 GET indexname/_search?sort=geciszamani:desc
-GET indexname/_search?q=plaka:42aak41
-GET indexname/_search?q=islem_talebi:59515203000&sort=islem_zamani:desc
+GET indexname/_search?q=plaka:41ornk41
+GET indexname/_search?q=islem_talebi:591111121112&sort=islem_zamani:desc
 GET indexname/_mapping
 
 
@@ -15,7 +15,7 @@ GET indexname/_search
 {
   "query": {
     "match": {
-      "mernisno": "50965370892"
+      "mernisno": "591111121112"
     }
   }
 }
@@ -24,7 +24,7 @@ GET indexname/_search
 {
   "query": {
     "match": {
-      "plaka": "06fd0786"
+      "plaka": "01ornk01"
     }
   },
   "size": 100
@@ -95,7 +95,7 @@ GET indexname/_search
           },
           {
             "match": {
-              "plaka":"42ABG739"
+              "plaka":"01ornek01"
             }
           }
         ] 
@@ -117,7 +117,7 @@ GET indexname/_search
          "bool": {
            "must":[
                 {"term" : {"ad":"aycan"} },
-                {"term" : {"soyad":"bülbül"} }
+                {"term" : {"soyad":"soyaycan"} }
              ]
          }
        },
@@ -136,7 +136,7 @@ GET indexname/_search
          "bool": {
            "must":[
                 {"term" : {"ad":"aycan"} },
-                {"term" : {"soyad":"bülbül"} }
+                {"term" : {"soyad":"soyaycan"} }
              ]
          }
        },
@@ -152,9 +152,9 @@ GET indexname/_search
        "filter": {
          "bool": {
            "must":[
-                {"match" : {"isyeri":"cumhurbaþkanlýðý"} },
+                {"match" : {"isyeri":"eti mad"} },
                 {"match" : {"il":"ankara"} },
-                {"match" : {"meslek":"EMNÝYET AMÝRÝ"} }
+                {"match" : {"meslek":"pilot"} }
              ]
          }
        },
@@ -163,7 +163,7 @@ GET indexname/_search
   }
 }
 --------------------------------------------------
-get indexname,indexname2,indexname3/_search?q=mernisno:59515203000
+get indexname,indexname2,indexname3/_search?q=mernisno:591111121112
 --------------------------------------------------
 
 GET indexname/_search
