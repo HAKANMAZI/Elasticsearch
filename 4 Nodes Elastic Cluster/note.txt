@@ -1,3 +1,14 @@
+Oracle VM VirtualBox or Hyper-V or Vmware Workstation
+      - Sanallaştırma için
+      - https://download.virtualbox.org/virtualbox/6.0.12/VirtualBox-6.0.12-133076-Win.exe
+Ubuntu
+      - Elasticsearch için en uygun işletim sistemlerinden biri (lucene,java)
+      - https://ubuntu.com/download/server/thank-you?version=18.04.3&architecture=amd64 
+Putty or Mobaxterm
+      - Linux komutlarını daha rahat çalıştırmak için
+      - https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe 
+WinSCP 
+
 1- Install ubuntu for 4 server
 2- Manage ip for 4 servers
 3- Drag and drop ( elasticsearch-7.8.0-amd64.deb / kibana-7.8.0-amd64.deb ) to ubuntu home directory for 4 Servers
