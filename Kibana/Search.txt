@@ -1,6 +1,9 @@
 -- search
 GET indexname/_search
 
+-- get all indeces details
+GET /_cat/indices
+
 -- search phonnumber finish 5 
 GET indexname/_search?q=phonenumber:*5 
 GET indexname/_search?q=konumua.ascii:supheli
