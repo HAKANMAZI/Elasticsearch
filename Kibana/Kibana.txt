@@ -5,6 +5,9 @@ GET /movies/_search?q=star
 GET /movies/_search?q=title:star
 NOT Queryline 
 
+-- get all indeces and names
+GET /_cat/indeces?v
+
 Bu formatta yazarken işler her zaman kolay olmuyor, + : > gibi işaretleri URL encode etmek gerekiyor, %2B %3A gibi.
 
 GET /movies/_search?q=year:>2010 OR title:trek
