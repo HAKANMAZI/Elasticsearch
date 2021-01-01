@@ -21,11 +21,79 @@ sudo systemctl daemon-reload
 
 
 
+*********************   CREATE CERTIFICATES  *********************  
+(create root certificate)
+sudo /usr/share/elasticsearch/bin/elasticsearch-certutil ca
+	Please enter the desired output file [elastic-stack-ca.p12]: elastic-hakan-ca.p12
+
+(create nodes certificate)
+sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert 
+	--ca elastic-hakan-ca.p12 
+	--dns localhost 
+	--ip 127.0.0.1,::1 
+	--out ~/certs/node-1.p12
+
+
+sudo mkdir /etc/elasticsearch/certs
+sudo cp elastic-hakan-ca.p12 /etc/elasticsearch/certs
+sudo cp certs/node-1.p12 /etc/elasticsearch/certs
+
+sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/
+sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/elastic-hakan-ca.p12
+sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/node-1.p12
+*********************   CREATE CERTIFICATES  *********************  
+
+
+(maximum ram for elastic 30g)
+sudo nano /etc/elasticsearch/jvm.options
+	-Xms30g
+   	-Xmx30g
+   	## G1GC Configuration
+   	# NOTE: G1GC is only supported on JDK version 10 or later.
+   	# To use G1GC uncomment the lines below.
+   	10-:-XX:-UseConcMarkSweepGC
+   	10-:-XX:-UseCMSInitiatingOccupancyOnly
+   	10-:-XX:+UseG1GC
+   	10-:-XX:G1ReservePercent=25
+   	10-:-XX:InitiatingHeapOccupancyPercent=30
+   	#-XX:+HeapDumpOnOutOfMemoryError
+   	#-XX:HeapDumpPath=/var/lib/elasticsearch
+
+
+sudo nano /etc/systemd/timesyncd.conf
+	#DNS servers
+	NTP=10.155.28.11
+sudo systemctl restart systemd-timesyncd
+
+sudo timedatectl set-timezone Europe/Istanbul
+
+
+sudo nano /etc/elasticsearch/elasticsearch.yml
+	path.data: /var/lib/elasticsearch
+	path.logs: /var/log/elasticsearch
+	cluster.name: elasticcluster
+	node.name: master-1
+	bootstrap.memory_lock: true
+	network.host: 192.168.41.132
+	http.port: 9200
+	discovery.seed_hosts: ["192.168.41.132:9200"]
+	node.master: true
+	node.data: false
+	indices.recovery.max_bytes_per_sec: 1024mb
+	indices.memory.index_buffer_size: 20%
+	thread_pool.write.queue_size: 10000
+	xpack.security.enabled: true
+
+sudo systemctl enable elasticsearch.service
+sudo systemctl restart elasticsearch.service
+
+sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
 
 
 
 
 
+##############################################  KİBANA ################################################
 
 #download and install kibana 
   wget https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-amd64.deb
