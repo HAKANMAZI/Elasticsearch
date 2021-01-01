@@ -65,26 +65,19 @@ sudo timedatectl set-timezone Europe/Istanbul
 
 
 sudo nano /etc/elasticsearch/elasticsearch.yml
-	cluster.name: hakancluster
-	node.name: node2
-	node.attr.disk_type: ssd
+	cluster.name: elasticcluster
+	node.name: data-1
 	bootstrap.memory_lock: true
-	network.host: 10.200.100.2
-	discovery.seed_hosts: ["10.200.100.1"]
-	cluster.initial_master_nodes: ["master1"]
+	network.host: 192.168.41.133
+	http.port: 9200
+	discovery.seed_hosts: ["192.168.41.132:9200"]
 	node.master: false
 	node.data: true
-	#gateway.recover_after_nodes: 4
 	indices.recovery.max_bytes_per_sec: 1024mb
-	indices.memory.index_buffer_size: 30%
-	thread_pool.write.queue_size: 30000
+	indices.memory.index_buffer_size: 20%
+	thread_pool.write.queue_size: 10000
 	xpack.security.enabled: true
-	xpack.security.transport.ssl.enabled: true
-	xpack.security.transport.ssl.verification_mode: certificate
-	xpack.security.transport.ssl.keystore.path: certs/node-1.p12
-	xpack.security.transport.ssl.keystore.password: password123456
-	xpack.security.transport.ssl.truststore.path: certs/node-1.p12
-	xpack.security.transport.ssl.truststore.password: password123456
+
 sudo systemctl enable elasticsearch.service
 sudo systemctl restart elasticsearch.service
 
