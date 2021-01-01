@@ -2,3 +2,7 @@
 #download and install elastic
   wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.4.2-amd64.deb
   sudo dpkg -i elasticsearch-7.4.2-amd64.deb
+
+#download and install kibana 
+  wget https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-amd64.deb
+  sudo dpkg -i kibana-7.10.1-amd64.deb
