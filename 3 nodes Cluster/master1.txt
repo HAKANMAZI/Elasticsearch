@@ -21,6 +21,32 @@ sudo systemctl daemon-reload
 
 
 
+
+
+sudo nano /etc/elasticsearch/elasticsearch.yml
+	cluster.name: elasticcluster
+	node.name: master1
+	bootstrap.memory_lock: true
+	network.host: 192.168.41.132
+	http.port: 9200
+	discovery.seed_hosts: ["192.168.41.132:9200"]
+	cluster.initial_master_nodes: ["master1"]
+	node.master: true
+	node.data: false
+	indices.recovery.max_bytes_per_sec: 1024mb
+	indices.memory.index_buffer_size: 20%
+	thread_pool.write.queue_size: 10000
+	xpack.security.enabled: true
+
+sudo systemctl enable elasticsearch.service
+sudo systemctl restart elasticsearch.service
+
+# to create auto password
+sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
+
+
+########################################
+
 *********************   CREATE CERTIFICATES  *********************  
 (create root certificate)
 sudo /usr/share/elasticsearch/bin/elasticsearch-certutil ca
@@ -66,30 +92,6 @@ sudo nano /etc/systemd/timesyncd.conf
 sudo systemctl restart systemd-timesyncd
 
 sudo timedatectl set-timezone Europe/Istanbul
-
-
-sudo nano /etc/elasticsearch/elasticsearch.yml
-	path.data: /var/lib/elasticsearch
-	path.logs: /var/log/elasticsearch
-	cluster.name: elasticcluster
-	node.name: master1
-	bootstrap.memory_lock: true
-	network.host: 192.168.41.132
-	http.port: 9200
-	discovery.seed_hosts: ["192.168.41.132:9200"]
-	cluster.initial_master_nodes: ["master1"]
-	node.master: true
-	node.data: false
-	indices.recovery.max_bytes_per_sec: 1024mb
-	indices.memory.index_buffer_size: 20%
-	thread_pool.write.queue_size: 10000
-	xpack.security.enabled: true
-
-sudo systemctl enable elasticsearch.service
-sudo systemctl restart elasticsearch.service
-
-# to create auto password
-sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
 
 
 
