@@ -72,11 +72,12 @@ sudo nano /etc/elasticsearch/elasticsearch.yml
 	path.data: /var/lib/elasticsearch
 	path.logs: /var/log/elasticsearch
 	cluster.name: elasticcluster
-	node.name: master-1
+	node.name: master1
 	bootstrap.memory_lock: true
 	network.host: 192.168.41.132
 	http.port: 9200
 	discovery.seed_hosts: ["192.168.41.132:9200"]
+	cluster.initial_master_nodes: ["master1"]
 	node.master: true
 	node.data: false
 	indices.recovery.max_bytes_per_sec: 1024mb
