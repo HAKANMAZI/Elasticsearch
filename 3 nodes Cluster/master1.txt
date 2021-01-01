@@ -104,10 +104,11 @@ sudo timedatectl set-timezone Europe/Istanbul
   sudo dpkg -i kibana-7.10.1-amd64.deb
 
 sudo nano /etc/kibana/kibana.yml
-	server.host: "10.200.100.1"
-	elasticsearch.hosts: ["http://10.200.100.1:9200"]
-	elasticsearch.username: "kibana_system"
-	elasticsearch.password: "kibana_system_auto_password"
-	elasticsearch.ssl.verificationMode: none
+	server.host: "192.168.41.132"
+	server.port: 5601
+	elasticsearch.hosts: ["http://192.168.41.132:9200"]
+	elasticsearch.username: "elastic_user"
+	elasticsearch.password: "elastic_pass"
+
 sudo systemctl enable kibana.service
 sudo systemctl restart kibana.service
