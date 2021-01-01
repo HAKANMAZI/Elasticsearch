@@ -12,5 +12,6 @@ What is the default Username and Password for ElasticSearch 7.4.2 (when x-pack e
 
 Error 4) data1
 java.lang.IllegalArgumentException: unknown setting [cluster.inital_master_nodes] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
-* he
+* http.port: 9200
+* http.port: 9200 birini kapatınca düzeldi
 
