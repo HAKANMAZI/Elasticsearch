@@ -87,6 +87,7 @@ sudo nano /etc/elasticsearch/elasticsearch.yml
 sudo systemctl enable elasticsearch.service
 sudo systemctl restart elasticsearch.service
 
+# to create auto password
 sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
 
 
