@@ -24,8 +24,25 @@ sudo systemctl edit elasticsearch.service
 
 sudo systemctl daemon-reload
 
+sudo nano /etc/elasticsearch/elasticsearch.yml
+  cluster.name: elasticcluster
+  node.name: data2
+  bootstrap.memory_lock: true
+  network.host: 192.168.41.134
+  http.port: 9200
+  discovery.seed_hosts: ["192.168.41.132:9200"]
+  cluster.initial_master_nodes: ["master1"]
+  node.master: false
+  node.data: true
+  indices.recovery.max_bytes_per_sec: 1024mb
+  indices.memory.index_buffer_size: 20%
+  thread_pool.write.queue_size: 10000
+  xpack.security.enabled: true
 
+sudo systemctl enable elasticsearch.service
+sudo systemctl restart elasticsearch.service
 
+##############################################3
 
 *********************   Drag CERTIFICATES to certs directory  *********************   
 sudo mkdir /etc/elasticsearch/certs
@@ -63,27 +80,9 @@ sudo systemctl restart systemd-timesyncd
 
 sudo timedatectl set-timezone Europe/Istanbul
 
-
-sudo nano /etc/elasticsearch/elasticsearch.yml
-  cluster.name: elasticcluster
-  node.name: data-2
-  bootstrap.memory_lock: true
-  network.host: 192.168.41.134
-  http.port: 9200
-  discovery.seed_hosts: ["192.168.41.132:9200"]
-  node.master: false
-  node.data: true
-  indices.recovery.max_bytes_per_sec: 1024mb
-  indices.memory.index_buffer_size: 20%
-  thread_pool.write.queue_size: 10000
-  xpack.security.enabled: true
-
-sudo systemctl enable elasticsearch.service
-sudo systemctl restart elasticsearch.service
-
 sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
 
-###########
+
 sudo sed -i.bak0 "s/archive\.ubuntu\.com/10.190.3.143/g" /etc/apt/sources.list
 
 sudo apt-get update --allow-insecure-repositories
