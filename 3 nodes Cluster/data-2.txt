@@ -1,0 +1,94 @@
+1- Install ubuntu for node2 server
+2- Manage ip for node2 server
+3- Drag and drop ( elasticsearch-7.8.0-amd64.deb / kibana-7.8.0-amd64.deb ) to ubuntu home directory for node2 server
+	you can use WinSCP or Mobaxterm 
+
+(install elasticsearch )
+sudo dpkg -i elasticsearch-7.4.2-amd64.deb
+
+(maximum open files and process limits)
+sudo nano /etc/security/limits.conf
+	elasticsearch   -       nofile          65535
+	elasticsearch   hard    nproc           16384
+
+
+(maximum memory maping)
+sudo nano /etc/sysctl.conf
+	vm.max_map_count=262144
+
+
+(maximum memory for jvm)
+sudo systemctl edit elasticsearch.service
+      [Service]
+      LimitMEMLOCK=infinity
+
+sudo systemctl daemon-reload
+
+
+
+
+*********************   Drag CERTIFICATES to certs directory  *********************   
+sudo mkdir /etc/elasticsearch/certs
+sudo cp elastic-hakan-ca.p12 /etc/elasticsearch/certs
+sudo cp certs/node-1.p12 /etc/elasticsearch/certs
+
+sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/
+sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/elastic-hakan-ca.p12
+sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/node-1.p12
+
+**********************   CERTIFICATES  *********************   
+
+
+
+(maximum ram for elastic 30g)
+sudo nano /etc/elasticsearch/jvm.options
+	-Xms30g
+   	-Xmx30g
+   	## G1GC Configuration
+   	# NOTE: G1GC is only supported on JDK version 10 or later.
+   	# To use G1GC uncomment the lines below.
+   	10-:-XX:-UseConcMarkSweepGC
+   	10-:-XX:-UseCMSInitiatingOccupancyOnly
+   	10-:-XX:+UseG1GC
+   	10-:-XX:G1ReservePercent=25
+   	10-:-XX:InitiatingHeapOccupancyPercent=30
+   	#-XX:+HeapDumpOnOutOfMemoryError
+   	#-XX:HeapDumpPath=/var/lib/elasticsearch
+
+
+sudo nano /etc/systemd/timesyncd.conf
+	#DNS servers
+	NTP=10.155.28.11
+sudo systemctl restart systemd-timesyncd
+
+sudo timedatectl set-timezone Europe/Istanbul
+
+
+sudo nano /etc/elasticsearch/elasticsearch.yml
+  cluster.name: elasticcluster
+  node.name: data-2
+  bootstrap.memory_lock: true
+  network.host: 192.168.41.134
+  http.port: 9200
+  discovery.seed_hosts: ["192.168.41.132:9200"]
+  node.master: false
+  node.data: true
+  indices.recovery.max_bytes_per_sec: 1024mb
+  indices.memory.index_buffer_size: 20%
+  thread_pool.write.queue_size: 10000
+  xpack.security.enabled: true
+
+sudo systemctl enable elasticsearch.service
+sudo systemctl restart elasticsearch.service
+
+sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
+
+###########
+sudo sed -i.bak0 "s/archive\.ubuntu\.com/10.190.3.143/g" /etc/apt/sources.list
+
+sudo apt-get update --allow-insecure-repositories
+
+
+
+
+
