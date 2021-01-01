@@ -65,18 +65,21 @@ sudo timedatectl set-timezone Europe/Istanbul
 
 
 sudo nano /etc/elasticsearch/elasticsearch.yml
-	cluster.name: elasticcluster
-	node.name: data-1
+
+cluster.name: elasticcluster
+	node.name: data1
 	bootstrap.memory_lock: true
 	network.host: 192.168.41.133
 	http.port: 9200
-	discovery.seed_hosts: ["192.168.41.132:9200"]
+	discovery.seed_hosts: ["192.168.41.132"]
+	cluster.inital_master_nodes: ["master1"]
 	node.master: false
 	node.data: true
 	indices.recovery.max_bytes_per_sec: 1024mb
 	indices.memory.index_buffer_size: 20%
 	thread_pool.write.queue_size: 10000
 	xpack.security.enabled: true
+
 
 sudo systemctl enable elasticsearch.service
 sudo systemctl restart elasticsearch.service
