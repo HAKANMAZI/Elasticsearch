@@ -24,7 +24,27 @@ sudo systemctl edit elasticsearch.service
 
 sudo systemctl daemon-reload
 
+sudo nano /etc/elasticsearch/elasticsearch.yml
+	cluster.name: elasticcluster
+	node.name: data1
+	bootstrap.memory_lock: true
+	network.host: 192.168.41.133
+	http.port: 9200
+	discovery.seed_hosts: ["192.168.41.132"]
+	cluster.inital_master_nodes: ["master1"]
+	node.master: false
+	node.data: true
+	indices.recovery.max_bytes_per_sec: 1024mb
+	indices.memory.index_buffer_size: 20%
+	thread_pool.write.queue_size: 10000
+	xpack.security.enabled: true
 
+sudo systemctl enable elasticsearch.service
+sudo systemctl restart elasticsearch.service
+
+sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
+
+##########################################
 
 
 *********************   Drag CERTIFICATES to certs directory  *********************   
@@ -36,8 +56,7 @@ sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/
 sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/elastic-hakan-ca.p12
 sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/node-1.p12
 
-**********************   CERTIFICATES  *********************   
-
+**********************   CERTIFICATES  *********************  
 
 
 (maximum ram for elastic 30g)
@@ -63,32 +82,7 @@ sudo systemctl restart systemd-timesyncd
 
 sudo timedatectl set-timezone Europe/Istanbul
 
-
-sudo nano /etc/elasticsearch/elasticsearch.yml
-
-cluster.name: elasticcluster
-	node.name: data1
-	bootstrap.memory_lock: true
-	network.host: 192.168.41.133
-	http.port: 9200
-	discovery.seed_hosts: ["192.168.41.132"]
-	cluster.inital_master_nodes: ["master1"]
-	node.master: false
-	node.data: true
-	indices.recovery.max_bytes_per_sec: 1024mb
-	indices.memory.index_buffer_size: 20%
-	thread_pool.write.queue_size: 10000
-	xpack.security.enabled: true
-
-
-sudo systemctl enable elasticsearch.service
-sudo systemctl restart elasticsearch.service
-
-sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
-
-###########
 sudo sed -i.bak0 "s/archive\.ubuntu\.com/10.190.3.143/g" /etc/apt/sources.list
-
 sudo apt-get update --allow-insecure-repositories
 
 
