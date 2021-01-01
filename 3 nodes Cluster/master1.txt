@@ -102,3 +102,12 @@ sudo timedatectl set-timezone Europe/Istanbul
 #download and install kibana 
   wget https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-amd64.deb
   sudo dpkg -i kibana-7.10.1-amd64.deb
+
+sudo nano /etc/kibana/kibana.yml
+	server.host: "10.200.100.1"
+	elasticsearch.hosts: ["http://10.200.100.1:9200"]
+	elasticsearch.username: "kibana_system"
+	elasticsearch.password: "kibana_system_auto_password"
+	elasticsearch.ssl.verificationMode: none
+sudo systemctl enable kibana.service
+sudo systemctl restart kibana.service
