@@ -5,7 +5,12 @@ Error 2)
 - cluster.initial_master_nodes: ["master1"]  doğru
 - cluster.initial_master_nodes: ["master-1"] yanlış
 
-Error 3)  What is the default Username and Password for ElasticSearch 7.4.2 (when x-pack enabled)?
+Error 3)  
+What is the default Username and Password for ElasticSearch 7.4.2 (when x-pack enabled)?
 * bin/elasticsearch-setup-passwords interactive
 * bin/elasticsearch-setup-passwords auto
+
+Error 4) data1
+java.lang.IllegalArgumentException: unknown setting [cluster.inital_master_nodes] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+* he
 
