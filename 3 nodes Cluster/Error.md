@@ -17,5 +17,5 @@ java.lang.IllegalArgumentException: unknown setting [cluster.inital_master_nodes
 Error 5) 
 Exception in thread "main" 2021-01-01 17:12:13,070 main ERROR No Log4j 2 configuration file found. Using default configuratio
 Jan 01 17:12:13 data2 elasticsearch[3227]: SettingsException[Failed to load settings from [elasticsearch.yml]]; nested: JsonParseException[Duplicate field 'http.port'
-* Duplicate field 'http.port' yani iki kez tanımlanmış
+* Duplicate field **'http.port'** yani iki kez tanımlanmış
 
